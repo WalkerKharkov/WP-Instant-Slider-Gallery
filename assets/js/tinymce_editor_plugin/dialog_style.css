@@ -1,0 +1,57 @@
+.isg_round, .isg_input, .isg_textarea, .isg_select{
+    border-radius: 5px;
+}
+
+.isg_input{
+    padding-left: 5px;
+    width: 220px;
+}
+
+.isg_textarea{
+    resize: none;
+}
+
+.isg_fieldset{
+    display: inline-block;
+    width: 44%;
+    vertical-align: top;
+    border: solid 1px #017449;
+    margin-right: 15px;
+}
+
+.isg_input_field {
+    clear: both;
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+.isg_label{
+    float: left;
+}
+
+.isg_button {
+    background-color: #0AA070;
+    color: white;
+    border: none;
+    outline: none;
+    font: bold 1rem "Arial Black";
+    border-radius: 5px;
+    line-height: 30px;
+    margin: -50px auto auto 15px;
+}
+
+.isg_button:hover{
+    cursor: pointer;
+}
+
+.isg_button:active, .isg_button:focus, .isg_button:hover{
+    background-color: #017449;
+}
+
+.valid{
+    background-color: lightgreen;
+}
+
+.invalid{
+    background-color: pink;
+}

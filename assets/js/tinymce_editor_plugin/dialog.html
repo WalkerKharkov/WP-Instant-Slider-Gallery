@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" class="isg_round">
+<head>
+    <meta charset="UTF-8">
+    <title>Settings</title>
+    <link rel="stylesheet" type="text/css" href="dialog_style.css">
+</head>
+<body class="isg_round">
+    <form id="dialog_form" name="dialog_form">
+        <fieldset class="isg_round isg_fieldset">
+            <legend>Cover</legend>
+            <div class="isg_input_field">
+                <label class="isg_label">url: </label>
+                <input class="isg_input" type="text" name="cover_url" id="cover_url" value="http://" data-type="url" data-input="true" data-required="true"/>
+            </div>
+            <div class="isg_input_field">
+                <label class="isg_label">width: </label>
+                <input class="isg_input" type="text" name="cover_width" id="cover_width" value="200" data-type="number" data-input="true" data-required="true"/>
+            </div>
+            <div class="isg_input_field">
+                <label class="isg_label">height: </label>
+                <input class="isg_input" type="text" name="cover_height" id="cover_height" value="100" data-type="number" data-input="true" data-required="true"/>
+            </div>
+            <div class="isg_input_field">
+                <label class="isg_label">margin: </label>
+                <input class="isg_input" type="text" name="cover_margin" id="cover_margin" value="10" data-type="number" data-input="true" data-required=""/>
+            </div>
+            <div class="isg_input_field">
+                <label class="isg_label">float: </label>
+                <select class="isg_select" name="cover_float" id="cover_float" data-type="text" data-input="true">
+                    <option value="none">none</option>
+                    <option value="left">left</option>
+                    <option value="right">right</option>
+                    <option value="inherit">inherit</option>
+                </select>
+            </div>
+        </fieldset>
+        <fieldset class="isg_round isg_fieldset">
+            <legend>Gallery</legend>
+            <div class="isg_input_field">
+                <label class="isg_label">id: </label>
+                <input class="isg_input" type="text" name="gallery_id" id="gallery_id" value="" data-type="text" data-input="true" data-required="true"/>
+            </div>
+            <div class="isg_input_field">
+                <label class="isg_label">all images are at the same url?</label>
+                <input type="radio" name="gallery_url_check" id="gallery_url_check_yes" value="yes" checked>yes
+                <input type="radio" name="gallery_url_check" id="gallery_url_check_no" value="no" />no
+            </div>
+            <div class="isg_input_field">
+                <label class="isg_label">images url: </label>
+                <input class="isg_input" type="text" name="gallery_url" id="gallery_url" value="http://" data-type="url" data-input="true" data-required="true"/>
+            </div>
+            <div class="isg_input_field">
+                <label class="isg_label" style="margin-bottom: 3px;">image name / youtube id (separated by commas): </label>
+                <textarea class="isg_textarea" type="text" name="gallery" id="gallery" rows="5" cols="45" value="" data-type="text" data-input="true" data-required="true"></textarea>
+            </div>
+            <div class="isg_input_field">
+                <label class="isg_label">width: </label>
+                <input class="isg_input" type="text" name="gallery_width" id="gallery_width" value="600" data-type="number" data-input="true" data-required="true"/>
+            </div>
+            <div class="isg_input_field">
+                <label class="isg_label">height: </label>
+                <input class="isg_input" type="text" name="gallery_height" id="gallery_height" value="400" data-type="number" data-input="true" data-required="true"/>
+            </div>
+        </fieldset>
+        <input type="button" name="apply" value=" Apply " id="apply" class="isg_button" />
+        <input type="button" name="cancel" value=" Cancel " id="cancel" class="isg_button" />
+    </form>
+    <script src="dialog.js"></script>
+    <script>new Dialog(document.querySelector("#dialog_form"));</script>
+</body>
+</html>
