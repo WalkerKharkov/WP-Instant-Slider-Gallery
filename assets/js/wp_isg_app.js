@@ -59,4 +59,4 @@ WP_isg.prototype.showGallery = function(id){
     this.sliders[id].startShow();
 };
 
-new WP_isg();
+var wp_isg = new WP_isg();

@@ -7,6 +7,8 @@ var Dialog = function(form){
 };
 
 Dialog.prototype.init = function(form){
+    this.settings = top.tinymce.activeEditor.windowManager.getParams().settings;
+    this.setDefaultSettings();
     this.formContent = {};
     this.elems = [];
     this.validator = {
@@ -51,6 +53,12 @@ Dialog.prototype.init = function(form){
     form.addEventListener("click", this.formClick);
 };
 
+Dialog.prototype.setDefaultSettings = function(){
+    for (var setting in this.settings){
+        document.querySelector('#' + setting).setAttribute('value', this.settings[setting]);
+    }
+};
+
 Dialog.prototype.inputValueChange = function(event){
     var targetId = event.target.getAttribute("id");
     if (!targetId) return;
@@ -76,7 +84,6 @@ Dialog.prototype.formSubmit = function(){
     shortcode += ' ]';
     top.tinymce.activeEditor.insertContent(shortcode);
     this.controller.cancel();
-    //console.log(shortcode);////////////////////////
 };
 
 Dialog.prototype.isValid = function(value, type, required){

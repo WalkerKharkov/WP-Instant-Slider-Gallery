@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Settings</title>
-    <link rel="stylesheet" type="text/css" href="dialog_style.css">
+    <link rel="stylesheet" type="text/css" href="editor_dialog_style.css">
 </head>
 <body class="isg_round">
     <form id="dialog_form" name="dialog_form">
@@ -15,15 +15,15 @@
             </div>
             <div class="isg_input_field">
                 <label class="isg_label">width: </label>
-                <input class="isg_input" type="text" name="cover_width" id="cover_width" value="200" data-type="number" data-input="true" data-required="true"/>
+                <input class="isg_input" type="text" name="cover_width" id="cover_width" value="" data-type="number" data-input="true" data-required="true"/>
             </div>
             <div class="isg_input_field">
                 <label class="isg_label">height: </label>
-                <input class="isg_input" type="text" name="cover_height" id="cover_height" value="100" data-type="number" data-input="true" data-required="true"/>
+                <input class="isg_input" type="text" name="cover_height" id="cover_height" value="" data-type="number" data-input="true" data-required="true"/>
             </div>
             <div class="isg_input_field">
                 <label class="isg_label">margin: </label>
-                <input class="isg_input" type="text" name="cover_margin" id="cover_margin" value="10" data-type="number" data-input="true" data-required=""/>
+                <input class="isg_input" type="text" name="cover_margin" id="cover_margin" value="" data-type="number" data-input="true" data-required=""/>
             </div>
             <div class="isg_input_field">
                 <label class="isg_label">float: </label>
@@ -56,17 +56,17 @@
             </div>
             <div class="isg_input_field">
                 <label class="isg_label">width: </label>
-                <input class="isg_input" type="text" name="gallery_width" id="gallery_width" value="600" data-type="number" data-input="true" data-required="true"/>
+                <input class="isg_input" type="text" name="gallery_width" id="gallery_width" value="" data-type="number" data-input="true" data-required="true"/>
             </div>
             <div class="isg_input_field">
                 <label class="isg_label">height: </label>
-                <input class="isg_input" type="text" name="gallery_height" id="gallery_height" value="400" data-type="number" data-input="true" data-required="true"/>
+                <input class="isg_input" type="text" name="gallery_height" id="gallery_height" value="" data-type="number" data-input="true" data-required="true"/>
             </div>
         </fieldset>
         <input type="button" name="apply" value=" Apply " id="apply" class="isg_button" />
         <input type="button" name="cancel" value=" Cancel " id="cancel" class="isg_button" />
     </form>
-    <script src="dialog.js"></script>
+    <script src="editor_dialog.js"></script>
     <script>new Dialog(document.querySelector("#dialog_form"));</script>
 </body>
 </html>

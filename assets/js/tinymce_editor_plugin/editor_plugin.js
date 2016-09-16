@@ -5,9 +5,11 @@
             title : 'add wp instant slider gallery shortcode',
             onclick: function() {
                 editor.windowManager.open({
-                    url: url + '/dialog.html',
+                    url: url + '/editor_dialog.html',
                     width: 800,
                     height: 360
+                },{
+                    settings: wp_isg_settings
                 });
                 var popupWindow = document.querySelector('.mce-window'),
                     windowHead = document.querySelector('.mce-window-head'),

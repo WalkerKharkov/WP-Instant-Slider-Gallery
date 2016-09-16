@@ -14,6 +14,72 @@ class WP_isg
 {
 
     public $images = array();
+    public $keys = array('cover_width', 'cover_height', 'cover_margin', 'gallery_width', 'gallery_height'),
+        $defaults = array(200, 100, 10, 600, 400),
+        $values;
+
+    function install(){
+        for ($i = 0; $i < count($this -> keys); $i++){
+            add_option($this -> keys[$i], $this -> values [$i]);
+        }
+    }
+
+    function update(){
+        for ($i = 0; $i < count($this -> keys); $i++ ){
+            update_option($this -> keys[$i], $this -> values[$i]);
+        }
+    }
+
+    function load_settings(){
+        if (!get_option($this -> keys[0])){
+            $this -> values = $this -> defaults;
+        }else{
+            for ($i = 0; $i < count($this -> keys); $i++){
+                $this -> values[$i] = get_option($this -> keys[$i]);
+            }
+        }
+    }
+
+    function edit_settings(){
+        if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+            for ($i = 0; $i < count($this -> keys); $i++){
+                $this -> values[$i] = $_POST[$this -> keys[$i]];
+            }
+            $this -> update();
+        }
+        ?>
+        <form method="POST" name="edit_settings">
+            <?php
+            for ($i = 0; $i < count($this -> keys); $i++){
+                ?>
+                <p>
+                    <label for="modalWidth">Enter <?php echo $this -> keys[$i]; ?></label>
+                    <input type="text" name="<?php echo $this -> keys[$i]; ?>" value="<?php echo get_option($this -> keys[$i]); ?>" maxlength="20" pattern="^[ 0-9]+$" required/>
+                </p>
+                <?php
+            }
+            ?>
+            <input type="submit" value="save"/>
+        </form>
+        <?php
+    }
+
+    function js_settings_load(){
+        for ($i = 0; $i < count($this -> keys); $i++){
+            $script_data[$this -> keys[$i]] = $this -> values[$i];
+        }
+        wp_localize_script('wp_mce_dialog_plugin', 'wp_isg_settings', $script_data);
+    }
+
+    function register_settings(){
+        for ($i = 0; $i < count($this -> keys); $i++){
+            register_setting('option-group', $this -> keys[$i]);
+        }
+    }
+
+    function add_admin_page(){
+        add_options_page('ISG settings', 'ISG settings', 8, 'preview', array($this, 'edit_settings'));
+    }
 
 	function add_tinymce_button(){
 		if (!current_user_can('edit_posts') && !current_user_can('edit_pages'))
@@ -35,8 +101,7 @@ class WP_isg
 	}
 
 	function js_data_load(){
-        $wp_isg_data = $this -> images;
-        wp_localize_script('wp_isg', 'wp_isg_data', $wp_isg_data);
+        wp_localize_script('wp_isg', 'wp_isg_data', $this -> images);
     }
 
     function add_gallery($atts, $content = null){
@@ -46,11 +111,11 @@ class WP_isg
             'gallery' => '',
             'cover_url' => '',
 	        'cover_float' => 'none',
-	        'cover_margin' => '10',
-            'cover_width' => '200',
-            'cover_height' => '100',
-            'gallery_width' => '800',
-            'gallery_height' => '600'
+	        'cover_margin' => $this -> values['cover_margin'],
+            'cover_width' => $this -> values['cover_width'],
+            'cover_height' => $this -> values['cover_height'],
+            'gallery_width' => $this -> values['gallery_width'],
+            'gallery_height' => $this -> values['gallery_height']
         ), $atts));
         array_push($this -> images, new WP_isg_gallery($gallery_id, $gallery_url, $gallery));
 		$this -> js_data_load();
@@ -64,19 +129,25 @@ class WP_isg
     }
 
     function __construct(){
+        register_activation_hook(__FILE__, array($this, 'install'));
+        register_deactivation_hook(__FILE__, array($this, 'uninstall'));
         wp_register_script('wp_isg_slider', plugins_url('/WPInstantSliderGallery/assets/js/wp_isg_slider.js'), array(), '', true);
         wp_register_script('wp_isg', plugins_url('/WPInstantSliderGallery/assets/js/wp_isg_app.js'), array(), '', true);
 		wp_register_script("wp_mce_dialog_plugin", plugins_url("/WPInstantSliderGallery/assets/js/tinymce_editor_plugin/editor_plugin.js"), array(), '', true);
-		$this -> js_data_load();
         wp_enqueue_script('wp_isg_slider');
         wp_enqueue_script('wp_isg');
 		wp_enqueue_script("wp_mce_dialog_plugin");
+        $this -> load_settings();
+        $this -> js_data_load();
+        $this -> js_settings_load();
 	    wp_register_style('wp_isg_style', plugins_url('/WPInstantSliderGallery/assets/css/wp_isg_style.css'), array(), '', 'all');
-		wp_register_style("wp_mce_dialog_style", plugins_url("/WPInstantSliderGallery/assets/js/tinymce_editor_plugin/dialog_style.css"), array(), '', 'all');
+		wp_register_style("wp_mce_dialog_style", plugins_url("/WPInstantSliderGallery/assets/js/tinymce_editor_plugin/editor_dialog_style.css"), array(), '', 'all');
 	    wp_enqueue_style('wp_isg_style');
 		wp_enqueue_style("wp_mce_dialog_style");
         add_shortcode('isg', array($this, 'add_gallery'));
 	    add_action('admin_head', array($this, 'add_tinymce_button'));
+        add_action('admin_menu', array($this, 'add_admin_page'));
+        add_action('admin_init', array($this, 'register_settings'));
     }
 
 }
