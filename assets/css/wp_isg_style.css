@@ -19,7 +19,7 @@
     font: bold 1rem "Arial Black";
     color: #f0f0f0;
     line-height: 25px;
-    position: absolute;
+    /*position: absolute;*/
     text-align: center;
     width: 24px;
     z-index: 99999;
@@ -35,13 +35,15 @@
     right: 0px;
 }
 
-.wp_isg_next{
-    right: 0px;
-}
+/*.wp_isg_next{*/
+    /*right: 0px;*/
+    /*position: absolute;*/
+/*}*/
 
-.wp_isg_prev{
-    left: 0px;
-}
+/*.wp_isg_prev{*/
+    /*left: 0px;*/
+    /*position: absolute;*/
+/*}*/
 
 .wp_isg_controls:hover{
     background: #B34EE9;

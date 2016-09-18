@@ -11,7 +11,9 @@ Dialog.prototype.init = function(form){
     this.setDefaultSettings();
     this.formContent = {};
     this.elems = [];
+    this.galleryURLvalue = '';
     this.validator = {
+        urlPattern: /^(https?:\/\/)?([\w\.]+)\.([a-z]{2,6}\.?)(\/[\w\.]*)*\/?$/,
         text: function(value){
             return true;
         },
@@ -19,7 +21,7 @@ Dialog.prototype.init = function(form){
             return !isNaN(parseInt(value));
         },
         url: function(value){
-            return (value.substr(0, 7) != 'http://' || value.substr(0, 8) != 'https://' || value.substr(0, 6) != 'ftp://');
+            return this.urlPattern.test(value);
         }
     };
     this.elems = Array.prototype.slice.call(form.getElementsByTagName('*')).filter(function(item){
@@ -44,9 +46,19 @@ Dialog.prototype.init = function(form){
             top.tinymce.activeEditor.windowManager.close();
         },
         gallery_url_check: function(self){
-            self.galleryURL.disabled = !self.galleryURL.disabled;
-            var required = (self.galleryURL.getAttribute("data-required") == "") ? "true" : "";
-            self.galleryURL.setAttribute("data-required", required);
+            //self.galleryURL.disabled = !self.galleryURL.disabled;
+            //var required = (self.galleryURL.getAttribute("data-required") == "") ? "true" : "";
+            //self.galleryURL.setAttribute("data-required", required);
+            if (self.galleryURL.hasAttribute('data-required')){
+                self.galleryURL.removeAttribute('data-required');
+                self.galleryURL.style.visibility = 'hidden';
+                self.galleryURLvalue = self.galleryURL.value;
+                self.galleryURL.setAttribute('value', '');
+            }else{
+                self.galleryURL.setAttribute('data-required', 'true');
+                self.galleryURL.style.visibility = 'visible';
+                self.galleryURL.setAttribute('value', self.galleryURL.value);
+            }
         }
     };
     form.addEventListener("input", this.inputValueChange);

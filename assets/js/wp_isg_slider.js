@@ -65,6 +65,9 @@ WP_isg_slider.prototype.createSliderControls = function(){
     this.previousButton.classList.add("wp_isg_controls", "wp_isg_prev");
     this.previousButton.innerText = "<";
     this.nextButton.style.top = this.previousButton.style.top = (this.popupHeight / 2) - 12 + "px";
+    this.previousButton.style.left = "0px";
+    this.nextButton.style.right = "0px";
+    this.closeButton.style.position = this.nextButton.style.position = this.previousButton.style.position = 'absolute';
     this.popupContainer.insertBefore(this.nextButton, this.popupContainer.firstElementChild);
     this.popupContainer.insertBefore(this.previousButton, this.popupContainer.firstElementChild);
     this.controls = this.doc.querySelectorAll(".wp_isg_controls");

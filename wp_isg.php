@@ -8,7 +8,7 @@ Author: Filatov Alex (El_Diablo)
 Author URI: http://filatovalex.com/
 */
 
-require_once 'assets/php/WP_isg_gallery.php';
+require_once 'classes/WP_isg_gallery.php';
 
 class WP_isg
 {
@@ -65,6 +65,7 @@ class WP_isg
     }
 
     function js_settings_load(){
+        $script_data = '';
         for ($i = 0; $i < count($this -> keys); $i++){
             $script_data[$this -> keys[$i]] = $this -> values[$i];
         }
