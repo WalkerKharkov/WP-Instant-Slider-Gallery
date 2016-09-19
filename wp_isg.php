@@ -9,6 +9,7 @@ Author URI: http://filatovalex.com/
 */
 
 require_once 'classes/WP_isg_gallery.php';
+require_once 'views/settings.php';
 
 class WP_isg
 {
@@ -41,27 +42,17 @@ class WP_isg
     }
 
     function edit_settings(){
-        if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-            for ($i = 0; $i < count($this -> keys); $i++){
-                $this -> values[$i] = $_POST[$this -> keys[$i]];
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            for ($i = 0; $i < count($this->keys); $i++) {
+                $this->values[$i] = $_POST[$this->keys[$i]];
             }
-            $this -> update();
+            $this->update();
         }
-        ?>
-        <form method="POST" name="edit_settings">
-            <?php
-            for ($i = 0; $i < count($this -> keys); $i++){
-                ?>
-                <p>
-                    <label for="modalWidth">Enter <?php echo $this -> keys[$i]; ?></label>
-                    <input type="text" name="<?php echo $this -> keys[$i]; ?>" value="<?php echo get_option($this -> keys[$i]); ?>" maxlength="20" pattern="^[ 0-9]+$" required/>
-                </p>
-                <?php
-            }
-            ?>
-            <input type="submit" value="save"/>
-        </form>
-        <?php
+        $options = array();
+        foreach ($this -> keys as $key => $value){
+            $options[$value] = get_option($value);
+        }
+        wp_isg_settings_render_html($this -> keys, $options);
     }
 
     function js_settings_load(){
