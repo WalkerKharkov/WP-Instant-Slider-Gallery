@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WPInstantSliderGallery
-Plugin URI: http://
+Plugin URI: http://filatovalex.com/WordPress/plugins/WPInstantGallery/
 Description: this plugin allows you to create instance slider gallery on your page by several mouse clicks
 Version: 1.0
 Author: Filatov Alex (El_Diablo)
