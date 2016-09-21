@@ -42,7 +42,7 @@ class WP_isg
     }
 
     function edit_settings(){
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if (!empty($_POST)) {
             for ($i = 0; $i < count($this->keys); $i++) {
                 $this->values[$i] = $_POST[$this->keys[$i]];
             }
