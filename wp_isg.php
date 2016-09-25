@@ -9,7 +9,6 @@ Author URI: http://filatovalex.com/
 */
 
 require_once 'classes/WP_isg_gallery.php';
-require_once 'views/settings.php';
 
 class WP_isg
 {
@@ -18,6 +17,17 @@ class WP_isg
     public $keys = array('cover_width', 'cover_height', 'cover_margin', 'gallery_width', 'gallery_height'),
         $defaults = array(200, 100, 10, 600, 400),
         $values;
+
+    function render_html($path, $data = array()){
+        $path = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $path);
+        if (is_array($data))
+        {
+            @extract($data);
+        }
+        ob_start();
+        include($path);
+        return ob_end_flush();
+    }
 
     function install(){
         for ($i = 0; $i < count($this -> keys); $i++){
@@ -52,7 +62,7 @@ class WP_isg
         foreach ($this -> keys as $key => $value){
             $options[$value] = get_option($value);
         }
-        wp_isg_settings_render_html($this -> keys, $options);
+        $this -> render_html("views/settings.php", array('options' => $options));
     }
 
     function js_settings_load(){
